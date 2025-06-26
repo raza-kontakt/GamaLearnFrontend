@@ -1,0 +1,159 @@
+{
+  "welcome": "مرحبا",
+  "description": "هذا وصف باللغة العربية.",
+  "header": {
+    "title": "بوابة مراقب الامتحانات"
+  },
+  "hero": {
+    "title": "إدارة الامتحانات ومراقبة الممتحنين بسلاسة",
+    "subtitle": "تتبع التقييمات التي تم تنزيلها، وراقب جلسات الطلاب، وقم بمزامنة التقديمات — كل ذلك في مكان واحد.",
+    "cta": "ابدأ الآن"
+  },
+  "statusLabels": {
+    "NOT_STARTED": "لم تبدأ",
+    "ON_GOING": "جارية",
+    "FINISHED": "منتهية",
+    "CLOSED": "مغلقة"
+  },
+  "features": {
+    "title": "مميزات قوية",
+    "subtitle": "كل ما تحتاجه لإدارة الامتحانات ومراقبة الطلاب بفعالية",
+    "assessments": {
+      "title": "التقييمات",
+      "description": "إنشاء وإدارة التقييمات بسهولة",
+      "downloadedAssessments": "التقييمات التي تم تنزيلها",
+      "downloadedAssessmentsDesc": "عرض ومزامنة محتوى الامتحان الذي تم تنزيله بكل سهولة."
+    },
+    "submissions": {
+      "title": "تتبع التقديمات",
+      "description": "مراقبة جلسات الممتحنين وتنفيذ الإجراءات في الوقت المناسب"
+    },
+    "insights": {
+      "title": "التحليلات",
+      "description": "احصل على تحليلات وأفكار مفصلة حول أداء الطلاب"
+    }
+  },
+  "tech": {
+    "poweredBy": "مدعوم بواسطة"
+  },
+  "footer": {
+    "credits": "تم التطوير بواسطة اسمك"
+  },
+  "notFound": {
+    "title": "عفوا! الصفحة غير موجودة",
+    "message": "لا يمكننا العثور على الصفحة التي تبحث عنها.",
+    "button": "اذهب إلى الصفحة الرئيسية"
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "error": "اسم المستخدم أو كلمة المرور غير صحيحة",
+    "fieldsRequired": "اسم المستخدم وكلمة المرور مطلوبان",
+    "success": "تم تسجيل الدخول بنجاح"
+  },
+  "common": {
+    "error": "لقد حدث خطأ ما",
+    "loading": "تحميل",
+    "notFound": "غير موجود",
+    "notAvailable": "غير متاح",
+    "close": "إغلاق",
+    "logout": "تسجيل الخروج"
+  },
+  "duration": {
+    "hour_one": "ساعة",
+    "hour_other": "ساعات",
+    "minute_one": "دقيقة",
+    "minute_other": "دقائق",
+    "second_one": "ثانية",
+    "second_other": "ثواني",
+    "seconds": "ثواني",
+    "minutes": "دقائق"
+  },
+  "dashboard": {
+    "sidebarTitle": "لوحة التحكم",
+    "menu": {
+      "home": "الرئيسية",
+      "assessments": "التقييمات",
+      "submissions": "التسليمات"
+    },
+    "headerTitle": "لوحة مراقبة الامتحانات",
+    "openDrawer": "فتح القائمة الجانبية",
+    "sidebarAria": "الشريط الجانبي للوحة التحكم",
+    "downloadedAssessments": "التقييمات التي تم تنزيلها",
+    "downloadedAssessmentsDesc": "تعرض هذه الصفحة جميع التقييمات التي تم تنزيلها ويمكن مزامنتها عند الطلب إذا توفرت تحديثات جديدة.",
+    "area": "المنطقة",
+    "area.name": "اسم المنطقة",
+    "assessmentName": "اسم التقييم",
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء",
+    "status": "الحالة",
+    "studentCount": "مراقبة الممتحنين",
+    "action": "إجراء",
+    "program": "البرنامج",
+    "course": "المقرر",
+    "sync": "مزامنة",
+    "syncSuccess": "تمت المزامنة بنجاح!",
+    "noAssessmentsDesc": "لم يتم العثور على أي تقييمات",
+    "all": "الكل",
+    "limit": "الحد"
+  },
+  "submissions": {
+    "title": "تتبع التقديمات",
+    "description": "مراقبة جلسات الممتحنين وتنفيذ الإجراءات في الوقت المناسب",
+    "studentId": "رقم الطالب",
+    "studentName": "اسم الطالب",
+    "status": "الحالة",
+    "sessionHealth": "صحة الجلسة",
+    "score": "النتيجة",
+    "noSubmissions": "لا توجد مقدمات",
+    "startTime": "وقت البدء",
+    "login": "تسجيل الدخول",
+    "start": "البدء",
+    "timeElapsed": "الوقت المنقضي",
+    "questionsSync": "مزامنة الأسئلة",
+    "switchToPaper": "تحويل إلى ورقي",
+    "switchToPending": "تحويل إلى معلق",
+    "actions": "الإجراءات",
+    "details": "التفاصيل",
+    "general": "عام",
+    "logs": "السجلات",
+    "studentInfo": "معلومات الطالب",
+    "examInfo": "معلومات الامتحان",
+    "loginTime": "وقت تسجيل الدخول",
+    "currentHealth": "الصحة الحالية",
+    "sessionHealthDescription": "مراقبة جودة الاتصال واستقرار الجلسة للطالب أثناء الامتحان.",
+    "activityLogs": "سجلات النشاط",
+    "noActivityLogs": "لا توجد سجلات نشاط متاحة لهذا الطالب.",
+    "switchToPaperSuccess": "تم التحويل إلى الوضع الورقي بنجاح",
+    "switchToPendingSuccess": "تم التحويل إلى الحالة المعلقة بنجاح"
+  },
+  "status": {
+    "PENDING": "قيد الانتظار",
+    "IN_PROGRESS": "قيد التنفيذ",
+    "COMPLETED": "مكتمل",
+    "STUDENT_SUBMISSION": "تقديم الطالب",
+    "ABSENT": "غائب",
+    "DISCONNECTED": "منقطع الاتصال",
+    "MOVED_TO_PAPER": "انتقل إلى بير"
+  },
+  "health": {
+    "GOOD": "جيد",
+    "AVERAGE": "متوسط",
+    "POOR": "ضعيف",
+    "DISCONNECTED": "منقطع الاتصال"
+  },
+  "activity": {
+    "LOGIN": "تسجيل الدخول",
+    "LOGOUT": "تسجيل الخروج",
+    "QUESTION_ANSWERED": "تم الإجابة على السؤال",
+    "SESSION_RESET": "إعادة تعيين الجلسة",
+    "SWITCH_TO_PAPER": "تحويل إلى ورقي"
+  },
+  "stats": {
+    "uptime": "وقت التشغيل",
+    "students": "الطلاب",
+    "support": "الدعم"
+  }
+}

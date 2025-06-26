@@ -1,0 +1,147 @@
+{
+  "welcome": "Welcome",
+  "description": "This is an English description.",
+  "header": {
+    "title": "Exam Invigilator Portal"
+  },
+  "hero": {
+    "title": "Manage Exams & Monitor Examinees Seamlessly",
+    "subtitle": "Track downloaded assessments, monitor student sessions, and sync submissions — all in one place.",
+    "cta": "Get Started"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "subtitle": "Everything you need to manage exams and monitor students effectively",
+    "assessments": {
+      "title": "Assessments",
+      "description": "Create and manage assessments with ease.",
+      "downloadedAssessments": "Downloaded Assessments",
+      "downloadedAssessmentsDesc": "View and sync downloaded exam content with ease."
+    },
+    "submissions": {
+      "title": "Track Submissions",
+      "description": "Monitor examinee sessions and perform time-sensitive actions."
+    },
+    "insights": {
+      "title": "Insights",
+      "description": "Get detailed analytics and insights about student performance."
+    }
+  },
+  "tech": {
+    "poweredBy": "Powered By"
+  },
+  "footer": {
+    "credits": "Developed by Ali"
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "message": "We can't seem to find the page you're looking for.",
+    "button": "Go to Home"
+  },
+  "login": {
+    "title": "Examiner Login",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Login",
+    "success": "Login successful!",
+    "error": "Invalid username or password.",
+    "required": "This field is required",
+    "fieldsRequired": "Username and password are required"
+  },
+  "common": {
+    "error": "Something went Wrong",
+    "loading": "Loading",
+    "notFound": "Not found",
+    "notAvailable": "Not Available",
+    "close": "Close",
+    "logout": "Logout"
+  },
+  "statusLabels": {
+    "NOT_STARTED": "Not Started",
+    "ON_GOING": "On Going",
+    "FINISHED": "Finished",
+    "CLOSED": "Closed"
+  },
+  "duration": {
+    "hour_one": "hour",
+    "hour_other": "hours",
+    "minute_one": "minute",
+    "minute_other": "minutes",
+    "second_one": "second",
+    "second_other": "seconds",
+    "seconds": "seconds",
+    "minutes": "minutes"
+  },
+  "dashboard": {
+    "sidebarTitle": "Dashboard",
+    "menu": {
+      "home": "Home",
+      "assessments": "Assessments",
+      "submissions": "Submissions"
+    },
+    "headerTitle": "Exam Invigilator Dashboard",
+    "openDrawer": "Open drawer",
+    "sidebarAria": "dashboard sidebar",
+    "downloadedAssessments": "Downloaded Assessments",
+    "downloadedAssessmentsDesc": "This view contains list of all the assessments that have been downloaded and can be synced on demand, if new updates are available.",
+    "area": "Area",
+    "area.name": "Area Name",
+    "assessmentName": "Assessment Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "studentCount": "Monitor Examinees",
+    "action": "Action",
+    "program": "Program",
+    "course": "Course",
+    "sync": "sync",
+    "syncSuccess": "Sync successful!",
+    "noAssessmentsDesc": "No Assesment Found",
+    "all": "All",
+    "limit": "Limit"
+  },
+  "submissions": {
+    "title": "Track Submissions",
+    "description": "Monitor examinee sessions and perform time-sensitive actions.",
+    "studentId": "Student ID",
+    "studentName": "Student Name",
+    "login": "Login",
+    "start": "Start",
+    "questionsSync": "Questions Sync",
+    "timeElapsed": "Time Elapsed",
+    "status": "Status",
+    "startTime": "Start Time",
+    "actions": "Actions",
+    "switchToPaper": "Switch to Paper",
+    "switchToPending": "Switch to Pending",
+    "switchToPaperSuccess": "Successfully switched to paper mode",
+    "switchToPendingSuccess": "Successfully switched to pending status",
+    "noSubmissions": "No submissions found"
+  },
+  "status": {
+    "PENDING": "Pending",
+    "IN_PROGRESS": "In Progress",
+    "COMPLETED": "Completed",
+    "STUDENT_SUBMISSION": "Student Submission",
+    "ABSENT": "Absent",
+    "DISCONNECTED": "Disconnected",
+    "MOVED_TO_PAPER": "Moved To Paper"
+  },
+  "activity": {
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "QUESTION_ANSWERED": "Question Answered",
+    "SESSION_RESET": "Session Reset",
+    "SWITCH_TO_PAPER": "Switch to Paper"
+  },
+  "health": {
+    "GOOD": "Good",
+    "POOR": "Poor",
+    "DISCONNECTED": "Disconnected"
+  },
+  "stats": {
+    "uptime": "Uptime",
+    "students": "Students",
+    "support": "Support"
+  }
+}
