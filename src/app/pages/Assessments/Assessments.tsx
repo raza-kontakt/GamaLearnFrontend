@@ -7,7 +7,7 @@ import 'moment/locale/ar';
 import Filters from '../../components/Filters';
 import SnackbarComponent from '../../components/common/SnackbarComponent';
 import type { Assessment, AssessmentsQueryResult } from '../../types';
-import { formatDateTime } from '../../utils';
+import { formatDateTime } from '../../utils/index';
 import { fetchAssessments, syncAssessment } from '../../data-layer/assessments';
 import ListStateWrapper from '../../components/common/ListStateWrapper';
 
@@ -83,12 +83,12 @@ const Assessments = () => {
       {
         Header: t('dashboard.action', 'Action'),
         accessor: 'action',
-        Cell: ({ row }: { row: Record<string, string> }) => (
+        Cell: ({ row }: { value: any; row: Assessment }) => (
           <Button
             variant="contained"
             color="primary"
-            onClick={() => mutation.mutate(row.id)}
-            disabled={syncingId === row.id}
+            onClick={() => mutation.mutate(row.id.toString())}
+            disabled={syncingId === row.id.toString()}
           >
             {t('dashboard.sync')}
           </Button>

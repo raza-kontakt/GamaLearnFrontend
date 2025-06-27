@@ -145,7 +145,7 @@ const TrackSubmission: React.FC = () => {
       {
         Header: t("submissions.timeElapsed"),
         accessor: "timeElapsed",
-        Cell: ({ value }) => formatDurationDescriptive(value, t),
+        Cell: ({ value }) => formatDurationDescriptive(value, (key: string, defaultValue?: string) => t(key, defaultValue || '')),
       },
       {
         Header: t("submissions.status"),

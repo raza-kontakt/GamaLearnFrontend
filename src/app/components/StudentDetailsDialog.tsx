@@ -22,7 +22,7 @@ import {
 } from '@mui/material';
 import { Timeline as TimelineIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { formatDateTime, formatDurationDescriptive } from '../utils';
+import { formatDateTime, formatDurationDescriptive } from '../utils/index';
 
 interface StudentDetailsDialogProps {
   open: boolean;
@@ -379,7 +379,7 @@ const StudentDetailsDialog: React.FC<StudentDetailsDialogProps> = ({
                             textAlign: { xs: 'left', sm: 'right' }
                           }}
                         >
-                          {formatDurationDescriptive(submission.timeElapsed, t)}
+                          {formatDurationDescriptive(submission.timeElapsed, (key: string, defaultValue?: string) => t(key, defaultValue || ''))}
                         </Typography>
                       </Box>
                       <Box 
