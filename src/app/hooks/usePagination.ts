@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 interface UsePaginationOptions {
   initialPage?: number;
@@ -18,7 +18,7 @@ export const usePagination = ({
 
   const setLimit = useCallback((newLimit: number) => {
     setLimitState(newLimit);
-    setPageState(1); // Reset to first page when limit changes
+    setPageState(1);
   }, []);
 
   const resetPagination = useCallback(() => {
@@ -33,4 +33,4 @@ export const usePagination = ({
     setLimit,
     resetPagination,
   };
-}; 
+};

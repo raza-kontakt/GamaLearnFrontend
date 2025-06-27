@@ -12,8 +12,8 @@ import { useQuery } from '@tanstack/react-query';
 import { searchStudents, StudentSearchResult } from '../data-layer/submissions';
 import { useDebounce } from '../hooks/useDebounce';
 import { DEBOUNCE_DELAY, QUERY_STALE_TIME } from '../constants';
-import StudentAutocompleteOption from './student/StudentAutocompleteOption';
-import StudentAutocompleteInput from './student/StudentAutocompleteInput';
+import StudentAutocompleteOption from './StudentAutocompleteInput/StudentAutocompleteOption';
+import StudentAutocompleteInput from './StudentAutocompleteInput/StudentAutocompleteInput';
 
 interface StudentAutocompleteProps {
   assessmentId: string;

@@ -1,45 +1,47 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Box, Typography, Button, Tooltip } from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import React, { useMemo, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Box, Typography, Button, Tooltip } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
-import { useSubmissions } from '../../hooks/useSubmissions';
-import { useFilters } from '../../hooks/useFilters';
-import { usePagination } from '../../hooks/usePagination';
-import ListStateWrapper from '../../components/common/ListStateWrapper';
-import SubmissionFilters from '../../components/SubmissionFilters';
-import SubmissionSummaryCard from '../../components/submission/SubmissionSummaryCard';
-import SubmissionActionMenu from '../../components/submission/SubmissionActionMenu';
-import StudentDetailsDialog from '../../components/StudentDetailsDialog';
-import SnackbarComponent from '../../components/common/SnackbarComponent';
-import { formatDateTime, formatDurationDescriptive } from '../../utils';
-import { isStudentPresent, isAssessmentStarted } from '../../utils/status';
-import type { 
-  Submission, 
+import { useSubmissions } from "../../hooks/useSubmissions";
+import { useFilters } from "../../hooks/useFilters";
+import { usePagination } from "../../hooks/usePagination";
+import ListStateWrapper from "../../components/common/ListStateWrapper";
+import SubmissionFilters from "../../components/SubmissionFilters";
+import SubmissionSummaryCard from "../../components/submission/SubmissionSummaryCard";
+import SubmissionActionMenu from "../../components/submission/SubmissionActionMenu";
+import StudentDetailsDialog from "../../components/StudentDetailsDialog";
+import SnackbarComponent from "../../components/common/SnackbarComponent";
+import { formatDateTime, formatDurationDescriptive } from "../../utils/";
+import { isStudentPresent, isAssessmentStarted } from "../../utils/status";
+import type {
+  Submission,
   SubmissionFilters as SubmissionFiltersType,
-  TableColumn
-} from '../../types';
-import type { StudentSearchResult } from '../../data-layer/submissions';
+  TableColumn,
+} from "../../types";
+import type { StudentSearchResult } from "../../data-layer/submissions";
 
 const INITIAL_FILTERS: SubmissionFiltersType = {
-  studentId: '',
-  status: '',
-  areaId: '',
+  studentId: "",
+  status: "",
+  areaId: "",
 };
 
 const TrackSubmission: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
-  
+
   const { filters, updateFilter } = useFilters({
     initialFilters: INITIAL_FILTERS,
   });
-  
+
   const { limit, page, setLimit, setPage } = usePagination();
-  
-  const [selectedStudent, setSelectedStudent] = useState<StudentSearchResult | null>(null);
-  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+
+  const [selectedStudent, setSelectedStudent] =
+    useState<StudentSearchResult | null>(null);
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<Submission | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [snackbar, setSnackbar] = useState<string | null>(null);
 
@@ -57,18 +59,22 @@ const TrackSubmission: React.FC = () => {
     page,
     onSwitchToPaperSuccess: () => {
       setSnackbar(
-        t('submissions.switchToPaperSuccess', 'Successfully switched to paper mode')
+        t(
+          "submissions.switchToPaperSuccess",
+          "Successfully switched to paper mode"
+        )
       );
     },
     onSwitchToPendingSuccess: () => {
       setSnackbar(
-        t('submissions.switchToPendingSuccess', 'Successfully switched to pending status')
+        t(
+          "submissions.switchToPendingSuccess",
+          "Successfully switched to pending status"
+        )
       );
     },
     onRefreshSuccess: () => {
-      setSnackbar(
-        t('submissions.refreshSuccess', 'Successfully refreshed')
-      );
+      setSnackbar(t("submissions.refreshSuccess", "Successfully refreshed"));
     },
   });
 
@@ -92,7 +98,7 @@ const TrackSubmission: React.FC = () => {
 
   const handleStudentChange = (student: StudentSearchResult | null) => {
     setSelectedStudent(student);
-    updateFilter('studentId', student?.id.toString() || '');
+    updateFilter("studentId", student?.id.toString() || "");
   };
 
   const handleSnackbarClose = () => {
@@ -104,56 +110,56 @@ const TrackSubmission: React.FC = () => {
   const columns: TableColumn<Submission>[] = useMemo(
     () => [
       {
-        Header: t('submissions.studentId'),
-        accessor: 'student.id',
+        Header: t("submissions.studentId"),
+        accessor: "student.id",
         Cell: ({ row }) => (
           <Button
             variant="text"
             color="primary"
             onClick={() => handleStudentClick(row)}
-            sx={{ textTransform: 'none' }}
+            sx={{ textTransform: "none" }}
           >
             {row.student?.id}
           </Button>
         ),
       },
-      { 
-        Header: t('submissions.studentName'), 
-        accessor: 'student.fullName' 
+      {
+        Header: t("submissions.studentName"),
+        accessor: "student.fullName",
       },
       {
-        Header: t('submissions.login'),
-        accessor: 'status',
-        Cell: ({ row }) => (isStudentPresent(row.status) ? 'Yes' : 'No'),
+        Header: t("submissions.login"),
+        accessor: "status",
+        Cell: ({ row }) => (isStudentPresent(row.status) ? "Yes" : "No"),
       },
       {
-        Header: t('submissions.start'),
-        accessor: 'status',
-        Cell: ({ row }) => (isAssessmentStarted(row.status) ? 'Yes' : 'No'),
+        Header: t("submissions.start"),
+        accessor: "status",
+        Cell: ({ row }) => (isAssessmentStarted(row.status) ? "Yes" : "No"),
       },
       {
-        Header: t('submissions.questionsSync'),
-        accessor: 'questionsSync',
+        Header: t("submissions.questionsSync"),
+        accessor: "questionsSync",
         Cell: ({ value }) => String(value),
       },
       {
-        Header: t('submissions.timeElapsed'),
-        accessor: 'timeElapsed',
+        Header: t("submissions.timeElapsed"),
+        accessor: "timeElapsed",
         Cell: ({ value }) => formatDurationDescriptive(value, t),
       },
       {
-        Header: t('submissions.status'),
-        accessor: 'status',
+        Header: t("submissions.status"),
+        accessor: "status",
         Cell: ({ value }) => t(`status.${value}`, String(value)),
       },
       {
-        Header: t('submissions.startTime'),
-        accessor: 'startTime',
+        Header: t("submissions.startTime"),
+        accessor: "startTime",
         Cell: ({ value }) => formatDateTime(value),
       },
       {
-        Header: t('submissions.actions'),
-        accessor: 'id',
+        Header: t("submissions.actions"),
+        accessor: "id",
         Cell: ({ row }) => (
           <SubmissionActionMenu
             submissionId={row.id.toString()}
@@ -168,19 +174,24 @@ const TrackSubmission: React.FC = () => {
   );
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+    <Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
         <Typography variant="h4" fontWeight="bold">
-          {t('submissions.title')}
+          {t("submissions.title")}
         </Typography>
-        <Tooltip title={t('common.refresh')}>
+        <Tooltip title={t("common.refresh")}>
           <Button
             variant="outlined"
             startIcon={<RefreshIcon />}
             onClick={refreshSubmissions}
             size="small"
           >
-            {t('common.refresh')}
+            {t("common.refresh")}
           </Button>
         </Tooltip>
       </Box>
@@ -195,7 +206,7 @@ const TrackSubmission: React.FC = () => {
       )}
 
       <SubmissionFilters
-        assessmentId={id || ''}
+        assessmentId={id || ""}
         filters={filters}
         onFilterChange={handleFilterChange}
         filterOptions={data?.filters}

@@ -1,12 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import {
   fetchSubmissions,
   switchSubmissionToPaper,
   switchStudentSubmissionToPending,
-} from '../data-layer/submissions';
-import { createSubmissionsQueryKey, getStaleTime } from '../utils/query';
-import type { SubmissionsQueryResult, SubmissionFilters } from '../types';
+} from "../data-layer/submissions";
+import { createSubmissionsQueryKey, getStaleTime } from "../utils/query";
+import type { SubmissionsQueryResult, SubmissionFilters } from "../types";
 
 interface UseSubmissionsOptions {
   assessmentId?: string;
@@ -31,7 +31,7 @@ export const useSubmissions = ({
   const queryClient = useQueryClient();
 
   const queryKey = createSubmissionsQueryKey(
-    assessmentId || '',
+    assessmentId || "",
     filters,
     limit,
     page,
@@ -52,7 +52,7 @@ export const useSubmissions = ({
       }),
     enabled: !!assessmentId,
     refetchOnWindowFocus: false,
-    staleTime: getStaleTime('SHORT'),
+    staleTime: getStaleTime("SHORT"),
   });
 
   const switchToPaperMutation = useMutation({
@@ -85,4 +85,4 @@ export const useSubmissions = ({
     isSwitchingToPending: switchToPendingMutation.isPending,
     refreshSubmissions,
   };
-}; 
+};
