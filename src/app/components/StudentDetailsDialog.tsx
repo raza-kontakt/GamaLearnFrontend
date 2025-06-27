@@ -109,17 +109,19 @@ const StudentDetailsDialog: React.FC<StudentDetailsDialogProps> = ({
     <Dialog 
       open={open} 
       onClose={onClose} 
-      maxWidth="lg" 
-      fullWidth
+      maxWidth={false}
       fullScreen={isMobile}
       PaperProps={{
         sx: {
-          m: isMobile ? 0 : 2,
-          height: isMobile ? '100vh' : 'auto',
-          maxHeight: isMobile ? '100vh' : '90vh',
-          width: isMobile ? '100vw' : 'auto',
+          m: isMobile ? 0 : { xs: 1, sm: 2 },
+          width: isMobile ? '100vw' : { xs: '95vw', sm: '90vw', md: '80vw', lg: '900px' },
+          height: isMobile ? '100vh' : { xs: '85vh', sm: '80vh', md: '75vh' },
+          maxWidth: isMobile ? '100vw' : '900px',
+          maxHeight: isMobile ? '100vh' : '75vh',
+          minHeight: isMobile ? '100vh' : { xs: '500px', sm: '600px' },
           display: 'flex',
           flexDirection: 'column',
+          overflow: 'hidden',
         }
       }}
     >
@@ -163,6 +165,7 @@ const StudentDetailsDialog: React.FC<StudentDetailsDialogProps> = ({
           flex: 1,
           overflow: 'hidden',
           minHeight: 0,
+          height: '100%',
         }}
       >
         <Box sx={{ 

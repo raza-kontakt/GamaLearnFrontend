@@ -27,8 +27,8 @@ export interface Assessment {
   createdAt: string;
   updatedAt: string;
   area: Area;
-  course: Course;
-  studentCount: number;
+  course?: Course;
+  studentCount?: number;
 }
 
 export interface Filters {
@@ -77,6 +77,19 @@ export interface Student {
   createdAt: string;
 }
 
+export interface SubmissionAssessment {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: "NOT_STARTED" | "ON_GOING" | "FINISHED" | "CLOSED";
+  areaId: number;
+  courseId: number;
+  createdAt: string;
+  updatedAt: string;
+  area: Area;
+}
+
 export interface Submission {
   id: number;
   studentId: number;
@@ -86,22 +99,51 @@ export interface Submission {
   questionsSync: number;
   timeElapsed: number;
   status:
-    | "IN_PROGRESS"
-    | "COMPLETED"
-    | "PENDING"
-    | "STUDENT_SUBMISSION"
     | "ABSENT"
-    | "DISCONNECTED";
-  sessionHealth: "GOOD" | "AVERAGE" | "POOR";
+    | "PENDING"
+    | "MOVED_TO_PAPER"
+    | "IN_PROGRESS"
+    | "BLOCKED"
+    | "DENIED"
+    | "STUDENT_SUBMISSION"
+    | "TIMER_SUBMISSION";
+  sessionHealth: "GOOD" | "POOR" | "DISCONNECTED";
   createdAt: string;
   updatedAt: string;
   student: Student;
-  assessment: Assessment;
-  score?: number;
+  assessment: SubmissionAssessment;
+  activities?: any[];
+}
+
+export interface SubmissionFiltersData {
+  statuses: Array<
+    | "ABSENT"
+    | "PENDING"
+    | "MOVED_TO_PAPER"
+    | "IN_PROGRESS"
+    | "BLOCKED"
+    | "DENIED"
+    | "STUDENT_SUBMISSION"
+    | "TIMER_SUBMISSION"
+  >;
+  sessionHealths: Array<"GOOD" | "POOR" | "DISCONNECTED">;
+  assessments: Array<{
+    id: number;
+    name: string;
+  }>;
+  areas: Array<{
+    id: number;
+    name: string;
+  }>;
+  students: Array<{
+    id: number;
+    fullName: string;
+  }>;
 }
 
 export interface SubmissionsQueryResult {
   data: Submission[];
+  filters: SubmissionFiltersData;
   pagination: {
     page: number;
     limit: number;

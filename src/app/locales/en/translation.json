@@ -54,7 +54,8 @@
     "notFound": "Not found",
     "notAvailable": "Not Available",
     "close": "Close",
-    "logout": "Logout"
+    "logout": "Logout",
+    "refresh": "Refresh"
   },
   "statusLabels": {
     "NOT_STARTED": "Not Started",
@@ -100,6 +101,11 @@
     "all": "All",
     "limit": "Limit"
   },
+  "assessments": {
+    "startTime": "Assessment Start Time",
+    "examinees": "Total Examinees",
+    "students": "Students"
+  },
   "submissions": {
     "title": "Track Submissions",
     "description": "Monitor examinee sessions and perform time-sensitive actions.",
@@ -116,16 +122,40 @@
     "switchToPending": "Switch to Pending",
     "switchToPaperSuccess": "Successfully switched to paper mode",
     "switchToPendingSuccess": "Successfully switched to pending status",
-    "noSubmissions": "No submissions found"
+    "noSubmissions": "No submissions found",
+    "area": "Area",
+    "details": "Details",
+    "general": "General",
+    "sessionHealth": "Session Health",
+    "logs": "Activity Logs",
+    "studentInfo": "Student Information",
+    "examInfo": "Exam Information",
+    "loginTime": "Login Time",
+    "currentHealth": "Current Health",
+    "sessionHealthDescription": "Session health indicates the quality of the student's connection during the exam.",
+    "activityLogs": "Activity Logs",
+    "noActivityLogs": "No activity logs available",
+    "searchStudentPlaceholder": "Search by student name..."
   },
   "status": {
-    "PENDING": "Pending",
-    "IN_PROGRESS": "In Progress",
-    "COMPLETED": "Completed",
-    "STUDENT_SUBMISSION": "Student Submission",
+    "absent": "Absent",
+    "pending": "Pending",
+    "moved_to_paper": "Moved to Paper",
+    "in_progress": "In Progress",
+    "blocked": "Blocked",
+    "denied": "Denied",
+    "student_submission": "Student Submission",
+    "timer_submission": "Timer Submission",
     "ABSENT": "Absent",
-    "DISCONNECTED": "Disconnected",
-    "MOVED_TO_PAPER": "Moved To Paper"
+    "PENDING": "Pending",
+    "MOVED_TO_PAPER": "Moved to Paper",
+    "IN_PROGRESS": "In Progress",
+    "BLOCKED": "Blocked",
+    "DENIED": "Denied",
+    "STUDENT_SUBMISSION": "Student Submission",
+    "TIMER_SUBMISSION": "Timer Submission",
+    "COMPLETED": "Completed",
+    "DISCONNECTED": "Disconnected"
   },
   "activity": {
     "LOGIN": "Login",
@@ -143,5 +173,11 @@
     "uptime": "Uptime",
     "students": "Students",
     "support": "Support"
+  },
+  "students": {
+    "typeToSearch": "Type at least 2 characters to search",
+    "searching": "Searching students...",
+    "searchError": "Error searching students",
+    "noResults": "No students found"
   }
 }

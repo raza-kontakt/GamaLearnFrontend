@@ -9,9 +9,17 @@ import {
   Menu,
   MenuItem,
   Button,
+  Tooltip,
+  Card,
+  CardContent,
+  Chip,
 } from "@mui/material";
 import "moment-duration-format";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PeopleIcon from "@mui/icons-material/People";
 
 import {
   fetchSubmissions,
@@ -25,6 +33,7 @@ import { SubmissionsQueryResult, Submission } from "../../types";
 import i18n from "../../locales/i18n";
 import StudentDetailsDialog from "../../components/StudentDetailsDialog";
 import SnackbarComponent from "../../components/common/SnackbarComponent";
+import { StudentSearchResult } from "../../data-layer/submissions";
 
 const TrackSubmission = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,8 +41,9 @@ const TrackSubmission = () => {
   const [filters, setFilters] = useState({
     studentId: "",
     status: "",
-    sessionHealth: "",
+    areaId: "",
   });
+  const [selectedStudent, setSelectedStudent] = useState<StudentSearchResult | null>(null);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const queryClient = useQueryClient();
@@ -81,7 +91,9 @@ const TrackSubmission = () => {
     queryFn: () =>
       fetchSubmissions({
         assessmentId: id,
-        ...filters,
+        studentId: filters.studentId,
+        status: filters.status,
+        areaId: filters.areaId,
         limit,
         page,
         lang: i18n.language,
@@ -251,21 +263,145 @@ const TrackSubmission = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleStudentChange = (student: StudentSearchResult | null) => {
+    setSelectedStudent(student);
+    setFilters((prev) => ({ 
+      ...prev, 
+      studentId: student ? student.id.toString() : "" 
+    }));
+  };
+
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["submissions", id, filters, limit, page, i18n.language],
+    });
+  };
+
   const currentPage = data?.pagination?.page || 1;
   const currentLimit = data?.pagination?.limit || limit;
   const totalPages = data?.pagination?.totalPages || 1;
 
+  // Get assessment info from first submission
+  const assessmentInfo = data?.data?.[0]?.assessment;
+  const totalExaminees = data?.pagination?.total || 0;
+
   return (
     <Box>
-      <Typography variant="h5" component="h5" fontWeight="bold" sx={{ mb: 1 }}>
-        {t("submissions.title")}
-      </Typography>
-      <Typography variant="body2" sx={{ mb: 3 }}>
-        {t("submissions.description")}
-      </Typography>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'flex-start',
+          mb: 1 
+        }}
+      >
+        <Box>
+          <Typography variant="h5" component="h5" fontWeight="bold" sx={{ mb: 1 }}>
+            {t("submissions.title")}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 3 }}>
+            {t("submissions.description")}
+          </Typography>
+        </Box>
+        
+        <Tooltip title={t("common.refresh", "Refresh")}>
+          <IconButton
+            onClick={handleRefresh}
+            disabled={isLoading}
+            sx={{
+              bgcolor: 'action.hover',
+              '&:hover': {
+                bgcolor: 'action.selected',
+              },
+              '&.Mui-disabled': {
+                bgcolor: 'action.disabledBackground',
+              },
+            }}
+          >
+            <RefreshIcon 
+              sx={{ 
+                animation: isLoading ? 'spin 1s linear infinite' : 'none',
+                '@keyframes spin': {
+                  '0%': {
+                    transform: 'rotate(0deg)',
+                  },
+                  '100%': {
+                    transform: 'rotate(360deg)',
+                  },
+                },
+              }} 
+            />
+          </IconButton>
+                 </Tooltip>
+       </Box>
+
+      {/* Assessment Information Card */}
+      {assessmentInfo && (
+        <Card sx={{ mb: 5, bgcolor: 'background.paper' }}>
+          <CardContent sx={{ py: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 3,
+                flexDirection: { xs: 'column', sm: 'row' },
+                alignItems: { xs: 'flex-start', sm: 'center' },
+              }}
+            >
+              <Box display="flex" alignItems="center" gap={1} sx={{ flex: 1 }}>
+                <ScheduleIcon color="primary" />
+                <Box>
+                  <Typography variant="caption" color="text.secondary">
+                    {t("assessments.startTime", "Assessment Start Time")}
+                  </Typography>
+                  <Typography variant="body2" fontWeight="bold">
+                    {formatDateTime(assessmentInfo.startDate)}
+                  </Typography>
+                </Box>
+              </Box>
+              
+              <Box display="flex" alignItems="center" gap={1} sx={{ flex: 1 }}>
+                <LocationOnIcon color="primary" />
+                <Box>
+                  <Typography variant="caption" color="text.secondary">
+                    {t("submissions.area", "Area")}
+                  </Typography>
+                  <Typography variant="body2" fontWeight="bold">
+                    {assessmentInfo.area?.name}
+                  </Typography>
+                </Box>
+              </Box>
+              
+              <Box display="flex" alignItems="center" gap={1} sx={{ flex: 1 }}>
+                <PeopleIcon color="primary" />
+                <Box>
+                  <Typography variant="caption" color="text.secondary">
+                    {t("assessments.examinees", "Total Examinees")}
+                  </Typography>
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <Typography variant="body2" fontWeight="bold">
+                      {totalExaminees}
+                    </Typography>
+                    <Chip 
+                      label={t("assessments.students", "Students")} 
+                      size="small" 
+                      color="primary" 
+                      variant="outlined"
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
+      )}
+
       <SubmissionFilters
+        assessmentId={id || ""}
         filters={filters}
         onFilterChange={handleFilterChange}
+        filterOptions={data?.filters}
+        selectedStudent={selectedStudent}
+        onStudentChange={handleStudentChange}
       />
       <ListStateWrapper
         isLoading={isLoading}
