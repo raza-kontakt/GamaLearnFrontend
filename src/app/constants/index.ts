@@ -1,0 +1,50 @@
+export const SUBMISSION_STATUS = {
+  ABSENT: 'ABSENT',
+  PENDING: 'PENDING',
+  MOVED_TO_PAPER: 'MOVED_TO_PAPER',
+  IN_PROGRESS: 'IN_PROGRESS',
+  BLOCKED: 'BLOCKED',
+  DENIED: 'DENIED',
+  STUDENT_SUBMISSION: 'STUDENT_SUBMISSION',
+  TIMER_SUBMISSION: 'TIMER_SUBMISSION',
+} as const;
+
+export const ASSESSMENT_STATUS = {
+  NOT_STARTED: 'NOT_STARTED',
+  ON_GOING: 'ON_GOING',
+  FINISHED: 'FINISHED',
+  CLOSED: 'CLOSED',
+} as const;
+
+export const SESSION_HEALTH = {
+  GOOD: 'GOOD',
+  POOR: 'POOR',
+  DISCONNECTED: 'DISCONNECTED',
+} as const;
+
+export const PAGINATION_LIMITS = [10, 50, 100, 500] as const;
+
+export const DEBOUNCE_DELAY = 300;
+
+export const QUERY_STALE_TIME = {
+  SHORT: 1000 * 60 * 2, // 2 minutes
+  MEDIUM: 1000 * 60 * 5, // 5 minutes
+  LONG: 1000 * 60 * 10, // 10 minutes
+} as const;
+
+export const STATUS_COLORS = {
+  [SUBMISSION_STATUS.ABSENT]: 'error',
+  [SUBMISSION_STATUS.IN_PROGRESS]: 'warning',
+  [SUBMISSION_STATUS.STUDENT_SUBMISSION]: 'success',
+  [SUBMISSION_STATUS.PENDING]: 'info',
+  [SUBMISSION_STATUS.MOVED_TO_PAPER]: 'secondary',
+  [SUBMISSION_STATUS.BLOCKED]: 'error',
+  [SUBMISSION_STATUS.DENIED]: 'error',
+  [SUBMISSION_STATUS.TIMER_SUBMISSION]: 'success',
+} as const;
+
+export const HEALTH_COLORS = {
+  [SESSION_HEALTH.GOOD]: 'success',
+  [SESSION_HEALTH.POOR]: 'warning',
+  [SESSION_HEALTH.DISCONNECTED]: 'error',
+} as const; 

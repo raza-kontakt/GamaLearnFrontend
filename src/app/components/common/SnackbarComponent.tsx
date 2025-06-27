@@ -1,23 +1,40 @@
-import { Snackbar } from '@mui/material';
+import React from 'react';
+import { Snackbar, Alert } from '@mui/material';
+import type { SnackbarProps } from '../../types';
 
-const SnackbarComponent = ({
+const SnackbarComponent: React.FC<SnackbarProps> = ({
   open,
-  autoHideDuration,
+  autoHideDuration = 6000,
   onClose,
   message,
-}: {
-  open: boolean;
-  autoHideDuration: number;
-  onClose: () => void;
-  message: string | null;
-}) => (
-  <Snackbar
-    open={open}
-    autoHideDuration={autoHideDuration}
-    onClose={onClose}
-    message={message}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  />
-);
+}) => {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    onClose();
+  };
+
+  return (
+    <Snackbar
+      open={open}
+      autoHideDuration={autoHideDuration}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    >
+      <Alert
+        onClose={handleClose}
+        severity="success"
+        variant="filled"
+        sx={{ width: '100%' }}
+      >
+        {message}
+      </Alert>
+    </Snackbar>
+  );
+};
 
 export default SnackbarComponent;

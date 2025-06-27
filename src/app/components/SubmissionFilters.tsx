@@ -1,23 +1,17 @@
 import React from 'react';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { SubmissionFiltersData } from '../types';
 import StudentAutocomplete from './StudentAutocomplete';
-import { StudentSearchResult } from '../data-layer/submissions';
+import FilterSelect from './common/FilterSelect';
+import type { 
+  SubmissionFilters, 
+  SubmissionFiltersData
+} from '../types';
+import type { StudentSearchResult } from '../data-layer/submissions';
 
 interface SubmissionFiltersProps {
   assessmentId: string;
-  filters: {
-    studentId: string;
-    status: string;
-    areaId: string;
-  };
+  filters: SubmissionFilters;
   onFilterChange: (name: string, value: string) => void;
   filterOptions?: SubmissionFiltersData;
   selectedStudent: StudentSearchResult | null;
@@ -34,12 +28,22 @@ const SubmissionFilters: React.FC<SubmissionFiltersProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const statusOptions = filterOptions?.statuses?.map(status => ({
+    id: status,
+    name: t(`status.${status.toLowerCase()}`, status)
+  })) || [];
+
+  const areaOptions = filterOptions?.areas?.map(area => ({
+    id: area.id,
+    name: area.name
+  })) || [];
+
   return (
     <Box
       sx={{
         display: 'flex',
         gap: 2,
-        mb: 2,
+        mb: 3,
         flexDirection: { xs: 'column', sm: 'row' },
         alignItems: { xs: 'stretch', sm: 'center' },
         flexWrap: 'wrap',
@@ -57,39 +61,23 @@ const SubmissionFilters: React.FC<SubmissionFiltersProps> = ({
         />
       </Box>
       
-      <FormControl size="small" sx={{ minWidth: 180, flex: 1 }}>
-        <InputLabel>{t('submissions.status', 'Status')}</InputLabel>
-        <Select
-          name="status"
-          value={filters.status}
-          label={t('submissions.status', 'Status')}
-          onChange={(e) => onFilterChange('status', e.target.value as string)}
-        >
-          <MenuItem value="">{t('dashboard.all', 'All')}</MenuItem>
-          {filterOptions?.statuses?.map((status) => (
-            <MenuItem key={status} value={status}>
-              {t(`status.${status.toLowerCase()}`, status)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <FilterSelect
+        name="status"
+        value={filters.status}
+        label="submissions.status"
+        options={statusOptions}
+        onChange={onFilterChange}
+        minWidth={150}
+      />
 
-      <FormControl size="small" sx={{ minWidth: 180, flex: 1 }}>
-        <InputLabel>{t('submissions.area', 'Area')}</InputLabel>
-        <Select
-          name="areaId"
-          value={filters.areaId}
-          label={t('submissions.area', 'Area')}
-          onChange={(e) => onFilterChange('areaId', e.target.value as string)}
-        >
-          <MenuItem value="">{t('dashboard.all', 'All')}</MenuItem>
-          {filterOptions?.areas?.map((area) => (
-            <MenuItem key={area.id} value={area.id.toString()}>
-              {area.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <FilterSelect
+        name="areaId"
+        value={filters.areaId}
+        label="submissions.area"
+        options={areaOptions}
+        onChange={onFilterChange}
+        minWidth={150}
+      />
     </Box>
   );
 };

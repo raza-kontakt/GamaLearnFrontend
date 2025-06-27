@@ -33,7 +33,7 @@ const DashboardLayout = () => {
         bgcolor: "background.default",
       }}
     >
-      <AppBar position="fixed" sx={{ borderRadius: 0 }}>
+      <AppBar position="fixed" sx={{ borderRadius: 0, zIndex: 9 }}>
         <Toolbar>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             <span style={{ marginRight: 4 }}>📚</span>{" "}

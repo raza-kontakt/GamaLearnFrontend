@@ -1,3 +1,9 @@
+import React from 'react';
+
+export * from './assessment';
+export * from './submission';
+export * from './common';
+
 export interface Area {
   id: number;
   name: string;
@@ -49,12 +55,12 @@ export interface AssessmentsQueryResult {
   };
 }
 
-export interface FiltersProps {
-  filters: any;
+export interface FiltersProps<T = any> {
+  filters: T;
   options: {
-    areas: Area[];
-    programs: Program[];
-    courses: Course[];
+    areas: Array<{ id: number; name: string }>;
+    programs: Array<{ id: number; name: string }>;
+    courses: Array<{ id: number; name: string }>;
     statuses: string[];
   };
   onChange: (name: string, value: string) => void;
@@ -150,4 +156,23 @@ export interface SubmissionsQueryResult {
     total: number;
     totalPages: number;
   };
+}
+
+export interface TableColumn<T = any> {
+  Header: string;
+  accessor: string;
+  Cell?: (props: { value: any; row: T }) => React.ReactNode;
+}
+
+export interface ListStateWrapperProps<T = any> {
+  isLoading: boolean;
+  error: Error | null | boolean;
+  data: { data: T[] } | undefined;
+  columns: TableColumn<T>[];
+  totalPages: number;
+  currentPage: number;
+  setPage: (page: number) => void;
+  currentLimit: number;
+  setLimit: (limit: number) => void;
+  emptyMessageKey: string;
 }

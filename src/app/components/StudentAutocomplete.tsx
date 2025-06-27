@@ -1,27 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 import {
   Autocomplete,
-  TextField,
   Box,
   Typography,
-  Avatar,
-  Chip,
   CircularProgress,
   Paper,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  InputAdornment,
-} from "@mui/material";
-import {
-  Search as SearchIcon,
-  Person as PersonIcon,
-  Clear as ClearIcon,
-} from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
-import { searchStudents, StudentSearchResult } from "../data-layer/submissions";
-import { useDebounce } from "../hooks/useDebounce";
+} from '@mui/material';
+import { Clear as ClearIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
+import { searchStudents, StudentSearchResult } from '../data-layer/submissions';
+import { useDebounce } from '../hooks/useDebounce';
+import { DEBOUNCE_DELAY, QUERY_STALE_TIME } from '../constants';
+import StudentAutocompleteOption from './student/StudentAutocompleteOption';
+import StudentAutocompleteInput from './student/StudentAutocompleteInput';
 
 interface StudentAutocompleteProps {
   assessmentId: string;
@@ -32,7 +24,7 @@ interface StudentAutocompleteProps {
   disabled?: boolean;
   error?: boolean;
   helperText?: string;
-  size?: "small" | "medium";
+  size?: 'small' | 'medium';
   fullWidth?: boolean;
 }
 
@@ -40,19 +32,19 @@ const StudentAutocomplete: React.FC<StudentAutocompleteProps> = ({
   assessmentId,
   value,
   onSelectionChange,
-  label = "Student Name",
-  placeholder = "Search by student name...",
+  label = 'Student Name',
+  placeholder = 'Search by student name...',
   disabled = false,
   error = false,
   helperText,
-  size = "small",
+  size = 'small',
   fullWidth = true,
 }) => {
   const { t, i18n } = useTranslation();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [open, setOpen] = useState(false);
 
-  const debouncedSearchTerm = useDebounce(inputValue, 300);
+  const debouncedSearchTerm = useDebounce(inputValue, DEBOUNCE_DELAY);
 
   const {
     data: students = [],
@@ -60,7 +52,7 @@ const StudentAutocomplete: React.FC<StudentAutocompleteProps> = ({
     error: searchError,
   } = useQuery({
     queryKey: [
-      "searchStudents",
+      'searchStudents',
       assessmentId,
       debouncedSearchTerm,
       i18n.language,
@@ -76,7 +68,7 @@ const StudentAutocomplete: React.FC<StudentAutocompleteProps> = ({
       !!assessmentId &&
       !!debouncedSearchTerm &&
       debouncedSearchTerm.length >= 2,
-    staleTime: 1000 * 60 * 5,
+    staleTime: QUERY_STALE_TIME.MEDIUM,
   });
 
   const handleInputChange = useCallback(
@@ -101,100 +93,64 @@ const StudentAutocomplete: React.FC<StudentAutocompleteProps> = ({
   );
 
   const renderOption = (props: any, option: StudentSearchResult) => (
-    <ListItem {...props} key={option.id}>
-      <ListItemAvatar>
-        <Avatar sx={{ bgcolor: "primary.main", width: 32, height: 32 }}>
-          <PersonIcon sx={{ fontSize: 18 }} />
-        </Avatar>
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <Typography variant="body1" fontWeight={500}>
-            {option.fullName}
-          </Typography>
-        }
-        secondary={
-          <React.Fragment>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              display="block"
-              component="span"
-            >
-              {t("submissions.studentId")}: {option.id}
-            </Typography>
-          </React.Fragment>
-        }
-      />
-    </ListItem>
+    <StudentAutocompleteOption option={option} props={props} />
   );
 
   const renderInput = (params: any) => (
-    <TextField
-      {...params}
-      label={t(label)}
-      placeholder={t(placeholder)}
+    <StudentAutocompleteInput
+      params={params}
+      label={label}
+      placeholder={placeholder}
       error={error}
       helperText={helperText}
-      InputProps={{
-        ...params.InputProps,
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon sx={{ color: "action.active", fontSize: 20 }} />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <React.Fragment>
-            {isLoading && open ? (
-              <CircularProgress color="inherit" size={20} />
-            ) : null}
-            {params.InputProps.endAdornment}
-          </React.Fragment>
-        ),
-      }}
-      sx={{
-        "& .MuiOutlinedInput-root": {
-          paddingLeft: 1,
-        },
-      }}
+      isLoading={isLoading}
+      open={open}
     />
   );
 
-  // Custom paper component for dropdown
-  const PaperComponent = (props: any) => (
+  const getNoOptionsText = (): string => {
+    if (debouncedSearchTerm.length < 2) {
+      return t('students.typeToSearch', 'Type at least 2 characters to search');
+    }
+    if (isLoading) {
+      return t('common.loading', 'Loading...');
+    }
+    if (searchError) {
+      return t('students.searchError', 'Error searching students');
+    }
+    return t('students.noResults', 'No students found');
+  };
+
+  const LoadingText = () => (
+    <Box display="flex" alignItems="center" justifyContent="center" py={2}>
+      <CircularProgress size={20} sx={{ mr: 1 }} />
+      <Typography variant="body2" color="text.secondary">
+        {t('students.searching', 'Searching students...')}
+      </Typography>
+    </Box>
+  );
+
+  const CustomPaper = (props: any) => (
     <Paper
       {...props}
       sx={{
         mt: 1,
-        "& .MuiAutocomplete-listbox": {
+        '& .MuiAutocomplete-listbox': {
           padding: 0,
-          "& .MuiListItem-root": {
-            borderBottom: "1px solid",
-            borderColor: "divider",
-            "&:last-child": {
-              borderBottom: "none",
+          '& .MuiListItem-root': {
+            borderBottom: '1px solid',
+            borderColor: 'divider',
+            '&:last-child': {
+              borderBottom: 'none',
             },
-            "&:hover": {
-              backgroundColor: "action.hover",
+            '&:hover': {
+              backgroundColor: 'action.hover',
             },
           },
         },
       }}
     />
   );
-
-  const noOptionsText = () => {
-    if (debouncedSearchTerm.length < 2) {
-      return t("students.typeToSearch", "Type at least 2 characters to search");
-    }
-    if (isLoading) {
-      return t("common.loading", "Loading...");
-    }
-    if (searchError) {
-      return t("students.searchError", "Error searching students");
-    }
-    return t("students.noResults", "No students found");
-  };
 
   return (
     <Autocomplete
@@ -219,24 +175,17 @@ const StudentAutocomplete: React.FC<StudentAutocompleteProps> = ({
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={renderInput}
       renderOption={renderOption}
-      PaperComponent={PaperComponent}
-      noOptionsText={noOptionsText()}
-      filterOptions={(options) => options} 
+      PaperComponent={CustomPaper}
+      noOptionsText={getNoOptionsText()}
+      filterOptions={(options) => options}
       clearIcon={<ClearIcon sx={{ fontSize: 18 }} />}
       popupIcon={null}
-      loadingText={
-        <Box display="flex" alignItems="center" justifyContent="center" py={2}>
-          <CircularProgress size={20} sx={{ mr: 1 }} />
-          <Typography variant="body2" color="text.secondary">
-            {t("students.searching", "Searching students...")}
-          </Typography>
-        </Box>
-      }
+      loadingText={<LoadingText />}
       sx={{
-        "& .MuiAutocomplete-inputRoot": {
-          paddingRight: "39px !important",
+        '& .MuiAutocomplete-inputRoot': {
+          paddingRight: '39px !important',
         },
-        "& .MuiAutocomplete-endAdornment": {
+        '& .MuiAutocomplete-endAdornment': {
           right: 9,
         },
       }}
