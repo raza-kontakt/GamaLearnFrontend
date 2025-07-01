@@ -6,20 +6,37 @@ import MainLayout from '../layouts/MainLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Assessments from '../pages/Assessments/Assessments';
 import TrackSubmission from '../pages/TrackSubmission/TrackSubmission';
+import RouteErrorBoundary from '../components/common/RouteErrorBoundary';
 
 function AppRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-      <Route path="/" element={<DashboardLayout />}>
-        <Route path="/assessments" element={<Assessments />} />
-        <Route path="/track-submission/:id" element={<TrackSubmission />} />
-      </Route>
-    </Routes>
+    <RouteErrorBoundary>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/" element={<DashboardLayout />}>
+          <Route 
+            path="/assessments" 
+            element={
+              <RouteErrorBoundary>
+                <Assessments />
+              </RouteErrorBoundary>
+            } 
+          />
+          <Route 
+            path="/track-submission/:id" 
+            element={
+              <RouteErrorBoundary>
+                <TrackSubmission />
+              </RouteErrorBoundary>
+            } 
+          />
+        </Route>
+      </Routes>
+    </RouteErrorBoundary>
   );
 }
 

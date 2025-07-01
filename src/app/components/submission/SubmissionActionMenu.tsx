@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { IconButton, Menu, MenuItem } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useTranslation } from 'react-i18next';
-import { canSwitchToPaper, canSwitchToPending } from '../../utils/status';
-import type { SubmissionStatus } from '../../types';
+import React, { useState } from "react";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useTranslation } from "react-i18next";
+import { canSwitchToPaper, canSwitchToPending } from "../../utils/status";
+import type { SubmissionStatus } from "../../types";
 
 interface SubmissionActionMenuProps {
   submissionId: string;
@@ -44,7 +44,11 @@ const SubmissionActionMenu: React.FC<SubmissionActionMenuProps> = ({
   const showPendingOption = canSwitchToPending(status);
 
   if (!showPaperOption && !showPendingOption) {
-    return null;
+    return (
+      <IconButton disabled size="small">
+        <MoreVertIcon />
+      </IconButton>
+    );
   }
 
   return (
@@ -57,22 +61,22 @@ const SubmissionActionMenu: React.FC<SubmissionActionMenuProps> = ({
         open={open}
         onClose={handleMenuClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         {showPaperOption && (
           <MenuItem onClick={handleSwitchToPaper}>
-            {t('submissions.switchToPaper')}
+            {t("submissions.switchToPaper")}
           </MenuItem>
         )}
         {showPendingOption && (
           <MenuItem onClick={handleSwitchToPending}>
-            {t('submissions.switchToPending')}
+            {t("submissions.switchToPending")}
           </MenuItem>
         )}
       </Menu>
@@ -80,4 +84,4 @@ const SubmissionActionMenu: React.FC<SubmissionActionMenuProps> = ({
   );
 };
 
-export default SubmissionActionMenu; 
+export default SubmissionActionMenu;

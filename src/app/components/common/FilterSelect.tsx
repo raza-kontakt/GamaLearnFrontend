@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface FilterSelectProps {
   name: string;
@@ -28,11 +28,11 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
       <InputLabel>{t(label, label)}</InputLabel>
       <Select
         name={name}
-        value={value || ''}
+        value={value || ""}
         label={t(label, label)}
         onChange={(e) => onChange(name, e.target.value as string)}
       >
-        <MenuItem value="">{t('dashboard.all', 'All')}</MenuItem>
+        <MenuItem value="">{t("dashboard.all", "All")}</MenuItem>
         {options.map((option) => (
           <MenuItem key={option.id} value={option.id.toString()}>
             {option.name}
@@ -43,4 +43,4 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   );
 };
 
-export default FilterSelect; 
+export default FilterSelect;

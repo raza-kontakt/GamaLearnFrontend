@@ -7,10 +7,10 @@ import {
   Box,
   Menu,
   MenuItem,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -31,23 +31,30 @@ const Header = () => {
     handleClose();
   };
 
+  const handleChangeLanguage = () => {
+    changeLanguage(i18n.language === "en" ? "ar" : "en");
+  };
+
+  const renderLanguage = () => {
+    return (
+      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+        <Button color="inherit" onClick={handleChangeLanguage}>
+          {i18n.language === "en" ? "العربية" : "English"}
+        </Button>
+      </Box>
+    );
+  };
+
   return (
     <AppBar position="static" sx={{ borderRadius: 0 }}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <span style={{ marginRight: 4 }}>📚</span> {t('header.title')}
+          <span style={{ marginRight: 4 }}>📚</span> {t("header.title")}
         </Typography>
 
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Button
-            color="inherit"
-            onClick={() => changeLanguage(i18n.language === 'en' ? 'ar' : 'en')}
-          >
-            {i18n.language === 'en' ? 'العربية' : 'English'}
-          </Button>
-        </Box>
+        {renderLanguage()}
 
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             size="large"
             edge="start"
@@ -58,12 +65,8 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            <MenuItem
-              onClick={() =>
-                changeLanguage(i18n.language === 'en' ? 'ar' : 'en')
-              }
-            >
-              {i18n.language === 'en' ? 'العربية' : 'English'}
+            <MenuItem onClick={handleChangeLanguage}>
+              {i18n.language === "en" ? "العربية" : "English"}
             </MenuItem>
           </Menu>
         </Box>
